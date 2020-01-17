@@ -1,11 +1,13 @@
 package com.bankapp.restapi.kindedbankrestapi.domain.entity;
 
+import com.bankapp.restapi.kindedbankrestapi.enums.Currency;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 /**
  * @project kinded-bank-restapi
@@ -23,6 +25,29 @@ public class CustomerAccount {
     @Column(name = "account_id")
     private Long id;
 
+
+    @OneToMany(
+            mappedBy = "customerAccount",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+//    @Column(nullable = true)
+//    @JsonManagedReference
+    private List<Withdrawals> withdrawals;
+
+    @OneToMany(
+            mappedBy = "customerAccount",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+//    @Column(nullable = true)
+//    @JsonManagedReference
+    private List<Deposits> deposits;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "currency", nullable = false)
+    private Currency currency;
+
     @NotBlank
     private String name;
 
@@ -32,8 +57,9 @@ public class CustomerAccount {
     public CustomerAccount() {
     }
 
-    public CustomerAccount(@NotBlank String name, Double balance) {
+    public CustomerAccount( @NotBlank String name,Currency currency, Double balance) {
         this.name = name;
+        this.currency = currency;
         this.balance = balance;
     }
 }
