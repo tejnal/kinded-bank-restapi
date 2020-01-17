@@ -1,6 +1,8 @@
 package com.bankapp.restapi.kindedbankrestapi.domain.entity;
 
 import com.bankapp.restapi.kindedbankrestapi.enums.Currency;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,8 +27,8 @@ public class Deposits {
     private long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "customer_account_id", nullable = false)
-//    @JsonManagedReference
+    @JoinColumn(name = "account_id", nullable = false)
+    @JsonBackReference
     private CustomerAccount customerAccount;
 
     //it is attribute for enum mapping in hibernate

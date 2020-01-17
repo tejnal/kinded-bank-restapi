@@ -1,6 +1,7 @@
 package com.bankapp.restapi.kindedbankrestapi.domain.entity;
 
 import com.bankapp.restapi.kindedbankrestapi.enums.Currency;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,23 +26,19 @@ public class CustomerAccount {
     @Column(name = "account_id")
     private Long id;
 
-
+    @JsonManagedReference
     @OneToMany(
             mappedBy = "customerAccount",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-//    @Column(nullable = true)
-//    @JsonManagedReference
     private List<Withdrawals> withdrawals;
-
+    @JsonManagedReference
     @OneToMany(
             mappedBy = "customerAccount",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-//    @Column(nullable = true)
-//    @JsonManagedReference
     private List<Deposits> deposits;
 
     @Enumerated(EnumType.STRING)

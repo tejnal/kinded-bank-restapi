@@ -1,6 +1,8 @@
 package com.bankapp.restapi.kindedbankrestapi.domain.entity;
 
 import com.bankapp.restapi.kindedbankrestapi.enums.Currency;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,8 +16,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name= "withdrawals")
-@Getter
-@Setter
 @ToString
 public class Withdrawals {
 
@@ -26,8 +26,8 @@ public class Withdrawals {
 
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "customer_account_id", nullable = false)
-    //@JsonManagedReference
+    @JoinColumn(name = "account_id", nullable = false)
+    @JsonBackReference
     private CustomerAccount customerAccount;
 
     @Column(name = "iban", nullable = false )
@@ -54,4 +54,5 @@ public class Withdrawals {
         this.withdrawalAmount = withdrawalAmount;
         this.creationDateTime = creationDateTime;
     }
+
 }
