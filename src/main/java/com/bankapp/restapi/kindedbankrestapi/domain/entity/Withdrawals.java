@@ -17,6 +17,8 @@ import java.util.Date;
 @Entity
 @Table(name= "withdrawals")
 @ToString
+@Getter
+@Setter
 public class Withdrawals {
 
     @Id

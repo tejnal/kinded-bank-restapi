@@ -4,6 +4,7 @@ import com.bankapp.restapi.kindedbankrestapi.common.CurrencyUtils;
 import com.bankapp.restapi.kindedbankrestapi.domain.entity.CustomerAccount;
 import com.bankapp.restapi.kindedbankrestapi.domain.entity.Deposits;
 import com.bankapp.restapi.kindedbankrestapi.enums.Currency;
+import com.bankapp.restapi.kindedbankrestapi.exception.ResourceNotFoundException;
 import com.bankapp.restapi.kindedbankrestapi.repository.CustomerAccountRepository;
 import com.bankapp.restapi.kindedbankrestapi.repository.DepositRepository;
 import com.bankapp.restapi.kindedbankrestapi.resource.DepositForm;
@@ -43,7 +44,8 @@ public class DepositController {
         Currency currency = CurrencyUtils.convertStringToCurrency(depositForm.getCurrency());
         var amount = depositForm.getAmount();
 
-        CustomerAccount customerAccount =  customerAccountRepository.findCustomerAccountById(accountId);
+        CustomerAccount customerAccount =  customerAccountRepository.findById(accountId)
+                 .orElseThrow(() -> new ResourceNotFoundException("CustomerAccount", "id", accountId));
 
         if(customerAccount !=null && customerAccount.getBalance() > 0) {
 

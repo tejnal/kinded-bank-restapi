@@ -13,8 +13,6 @@ public class CurrencyUtils {
 
     public static Currency convertStringToCurrency (String currency) {
         switch (currency.toLowerCase()) {
-            case "euro":
-                return EURO;
             case "swedishkrona":
                 return SWEDISHKRONA;
             case "pound":
