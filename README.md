@@ -3,7 +3,7 @@
 #Tech stack:
 Spring boot2 , Spring rest, spring data jpa, h2 database, mysql
 
-## overview 
+## Overview 
 This is simple banking application where we can perform below rest calls 
 
 - POST : http://localhost:8080/accounts/new -- Create customer account 
