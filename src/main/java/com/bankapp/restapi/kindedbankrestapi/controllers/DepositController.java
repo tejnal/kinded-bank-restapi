@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class DepositController {
 
 
     @PostMapping("/accounts/{id}/deposit")
-    public List<Deposits> createDeposit (@PathVariable("id") Long accountId, @RequestBody DepositForm depositForm) {
+    public List<Deposits> createDeposit (@PathVariable("id") Long accountId, @Valid @RequestBody DepositForm depositForm) {
 
         Currency currency = CurrencyUtils.convertStringToCurrency(depositForm.getCurrency());
         var amount = depositForm.getAmount();
@@ -54,7 +55,7 @@ public class DepositController {
             customerAccountRepository.save(customerAccount);
             depositRepository.save(deposits);
         } else {
-            logger.info("Error post a deposit");
+            logger.info("pull the amount more than zero to complete transaction ");
         }
         return depositRepository.findTransactionsByCustomerAccountId(accountId);
 
